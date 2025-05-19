@@ -1,0 +1,40 @@
+name: Build macOS App
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install py2app -r requirements.txt
+
+      - name: Build .app
+        run: |
+          python3 setup.py py2app
+
+      - name: Zip .app
+        run: |
+          cd dist
+          zip -r GoogleChatViewer-mac.zip *.app
+
+      - name: Upload release artifact
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/GoogleChatViewer-mac.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
