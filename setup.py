@@ -13,7 +13,6 @@ OPTIONS = {
         'CFBundleVersion': '1.0.0',
         'CFBundleShortVersionString': '1.0.0',
     },
-    # 'iconfile': 'your_icon.icns',  # 원하면 아이콘도 추가 가능
 }
 
 setup(
