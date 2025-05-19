@@ -32,9 +32,8 @@ jobs:
           cd dist
           zip -r GoogleChatViewer-mac.zip *.app
 
-      - name: Upload release artifact
+      - name: Upload to release (using PAT)
         uses: softprops/action-gh-release@v1
         with:
           files: dist/GoogleChatViewer-mac.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
